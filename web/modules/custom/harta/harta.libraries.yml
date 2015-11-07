@@ -1,0 +1,15 @@
+harta_lapompa:
+  version: 1.x
+  css:
+    theme:
+      css/lapompa.css: {}
+  js:
+    js/lapompa.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - harta/google_map
+google_map:
+  version: 3.x
+  js:
+    http://example.com/test.js

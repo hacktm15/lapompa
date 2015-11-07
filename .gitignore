@@ -15,3 +15,9 @@ web/sites/default/settings.php
 .idea
 /nbproject/*
 error.log
+
+# Ignore SCSS cache files
+.sass-cache
+
+# Ignore vim cache files
+*.swp

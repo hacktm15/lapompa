@@ -1,0 +1,14 @@
+{
+  "name": "drupal/harta",
+  "type": "drupal-module",
+  "description": "Afiseaza benzinariile pe harta si intr-un listing.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "http://drupal.org/project/harta",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/harta",
+    "source": "http://cgit.drupalcode.org/harta"
+  },
+  "require": { }
+}
