@@ -1,0 +1,14 @@
+{
+  "name": "drupal/benzinarie",
+  "type": "drupal-module",
+  "description": "Se ocupa cu editarea si afisarea benzinariilor",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "http://drupal.org/project/benzinarie",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/benzinarie",
+    "source": "http://cgit.drupalcode.org/benzinarie"
+  },
+  "require": { }
+}

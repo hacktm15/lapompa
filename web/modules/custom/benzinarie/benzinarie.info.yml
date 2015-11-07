@@ -1,0 +1,5 @@
+name: Benzinarie
+type: module
+description: Se ocupa cu editarea si afisarea benzinariilor
+core: 8.x
+package: lapompa
