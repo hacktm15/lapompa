@@ -1,0 +1,10 @@
+name: lapompa
+type: theme
+description: Custom theme for the lapompa.in/ website
+package: Core
+version: 8.0.0
+core: 8.x
+base theme: classy
+
+libraries:
+  - lapompa/global-styling
