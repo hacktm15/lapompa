@@ -5,6 +5,8 @@
  * Contains benzinarie.module..
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -30,4 +32,68 @@ function benzinarie_theme() {
   $theme = [];
 
   return $theme;
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function benzinarie_entity_extra_field_info() {
+  $extra = array();
+  $description = t('Element din benzinarie');
+  $tip_carburant_ids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'tip_carburant')
+    ->execute();
+  $tipuri_carburant = \Drupal\taxonomy\Entity\Term::loadMultiple($tip_carburant_ids);
+
+  foreach ($tipuri_carburant as $tip_carburant) {
+    $extra['node']['benzinarie']['display']['tip_carburant_' . $tip_carburant->id()] = [
+      'label' => t('Pret la @tip_carburant', ['@tip_carburant' => $tip_carburant->label()]),
+      'description' => $description,
+      'weight' => 0,
+      'visible' => TRUE,
+    ];
+  }
+
+  $extra['node']['benzinarie']['display']['titlu_compus'] = [
+    'label' => t('Titlu compus'),
+    'description' => $description,
+    'weight' => 0,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implments hook_ENTITY_TYPE_view().
+ */
+function benzinarie_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if ($entity->getType() == 'benzinarie') {
+    $tip_carburant_ids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'tip_carburant')
+      ->execute();
+    $tipuri_carburant = \Drupal\taxonomy\Entity\Term::loadMultiple($tip_carburant_ids);
+
+    foreach ($tipuri_carburant as $tip_carburant) {
+      $preturi_ids = \Drupal::entityQuery('node')
+        ->condition('type', 'pret')
+        ->condition('field_benzinarie.target_id', $entity->id())
+        ->condition('field_tip_carburant.target_id', $tip_carburant->id())
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->execute();
+
+      if (count($preturi_ids)) {
+        $pret_id = array_shift($preturi_ids);
+        $pret = \Drupal\node\Entity\Node::load($pret_id);
+        $build['tip_carburant_' . $tip_carburant->id()] = [
+          '#markup' => '<div class="' . 'tip_carburant_' . $tip_carburant->id() . '">' . t('@tip_carburant @pret lei', ['@tip_carburant' => $tip_carburant->label(), '@pret' => $pret->field_valoare->value]) . '</div>',
+        ];
+      }
+    }
+
+    $build['titlu_compus'] = [
+      '#markup' => '<h2">' . t('@lant @locatie', ['@lant' => $entity->field_lant->entity->label(), '@locatie' => $entity->title->value]) . '</h2>',
+    ];
+  }
 }
