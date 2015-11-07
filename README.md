@@ -1,77 +1,21 @@
-# Composer template for Drupal projects
+# lapompa.in/
 
-[![Build Status](https://travis-ci.org/drupal-composer/drupal-project.svg?branch=8.x)](https://travis-ci.org/drupal-composer/drupal-project)
+Te-ai intrebat vreodata daca platesti mai mult pentru un plin de combustibil decat alti concetateni?
 
-This project template should provide a kickstart for managing your site
-dependencies with [Composer](https://getcomposer.org/).
+Te-ai intrebat vreodata unde poti gasi cel mai bun pret la combustibil in zona ta?
 
-If you want to know how to use it as replacement for
-[Drush Make](https://github.com/drush-ops/drush/blob/master/docs/make.md) visit
-the [Documentation on drupal.org](https://www.drupal.org/node/2471553).
+Acum, lapompa.in/ iti aduce raspunsurile.
 
-## Usage
+# Cum functioneaza?
 
-First you need to [install composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
+Proiectul se bazeaza pe colectarea informatiilor de catre utilizatori. Orice utilizator autentificat poate actualiza preturile la benzinarii.
 
-> Note: The instructions below refer to the [global composer installation](https://getcomposer.org/doc/00-intro.md#globally).
-You might need to replace `composer` with `php composer.phar` (or similar) for your setup.
+De asemenea, incercam sa folosim algoritmi predictivi pentru a estima preturile la benzinariile la care pretul nu a fost actualizat recent, bazandu-ne pe actualizarile care au fost introduse la benzinariile din acelasi lant.
 
-After that you can create the project:
+# De ce?
 
-```
-composer create-project drupal-composer/drupal-project:8.x-dev some-dir --stability dev --no-interaction
-```
+De-a lungul timpului am observat ca pretul carburantilor variaza intre benzinariile aceluiasi oras cu pana la 10%. Vrem sa ajutam oamenii sa decida de unde alimenteaza avand acces la toate informatiile necesare.
 
-With `composer require ...` you can download new dependencies to your installation.
+# Cum pot ajuta?
 
-```
-cd some-dir
-composer require drupal/devel:8.*
-```
-
-If you are adding command line tools like Drush through composer, you can add
-them to your shell's path by running `shell.sh` in the project's root
-directory.
-
-## What does the template do?
-
-When installing the given `composer.json` some tasks are taken care of:
-
-* Drupal will be installed in the `web`-directory.
-* Autoloader is implemented to use the generated composer autoloader in `vendor/autoload.php`,
-  instead of the one provided by Drupal (`web/vendor/autoload.php`).
-* Modules (packages of type `drupal-module`) will be placed in `web/modules/contrib/`
-* Theme (packages of type `drupal-theme`) will be placed in `web/themes/contrib/`
-* Profiles (packages of type `drupal-profile`) will be placed in `web/profiles/contrib/`
-* Creates default writable versions of `settings.php` and `services.yml`.
-* Creates `sites/default/files`-directory.
-* Latest version of drush is installed locally for use at `vendor/bin/drush`.
-* Latest version of DrupalConsole is installed locally for use at `vendor/bin/console`.
-
-## Updating Drupal Core
-
-Updating Drupal core is a two-step process.
-
-1. Update the version number of `drupal/core` in `composer.json`.
-1. Run `composer update drupal/core`.
-1. Run `./scripts/drupal/update-scaffold [drush-version-spec]` to update files
-   in the `web` directory, where `drush-version-spec` is an optional identifier
-   acceptable to Drush, e.g. `drupal-8.0.x` or `drupal-8.1.x`, corresponding to
-   the version you specified in `composer.json`. (Defaults to `drupal-8`, the
-   latest stable release.) Review the files for any changes and restore any
-   customizations to `.htaccess` or `robots.txt`.
-1. Commit everything all together in a single commit, so `web` will remain in
-   sync with the `core` when checking out branches or running `git bisect`.
-
-## Generate composer.json from existing project
-
-With using [the "Composer Generate" drush extension](https://www.drupal.org/project/composer_generate)
-you can now generate a basic `composer.json` file from an existing project. Note
-that the generated `composer.json` might differ from this project's file.
-
-
-## FAQ
-
-### Should I commit the contrib modules I download
-
-Composer recommends **no**. They provide [argumentation against but also workrounds if a project decides to do it anyway](https://getcomposer.org/doc/faqs/should-i-commit-the-dependencies-in-my-vendor-directory.md).
+Daca vezi ca preturile la o benzinarie nu sunt actualizate, poti sa le actualizezi in cateva secunde, astfel ajutand concetatenii tai.
