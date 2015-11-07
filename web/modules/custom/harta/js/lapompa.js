@@ -1,18 +1,7 @@
 Drupal.harta = {};
 
 Drupal.harta.getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
+  return document.location.pathname.replace( '/', ' ' ).trim();    
 };
 
 Drupal.harta.initMap = function() {
@@ -31,11 +20,11 @@ Drupal.harta.initMap = function() {
 
   var location_field = document.getElementById('cauta-locatie'); 
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(location_field);
-  var autocomplete = new google.maps.places.Autocomplete(location_field);
+  var autocomplete = new google.maps.places.SearchBox(location_field);
   autocomplete.bindTo( 'bounds', map );
 
   autocomplete.addListener('place_changed', function() {
-    var place = autocomplete.getPlace()
+    var place = autocomplete.getPlace();
     if (!place.geometry) {
       return;
     }
@@ -50,9 +39,17 @@ Drupal.harta.initMap = function() {
   });
 
   var url_location = Drupal.harta.getUrlParameter( 'location' );
-  if( url_location != undefined ) {
-    jQuery(location_field).val( url_location );
-    autocomplete.trigger('place_changed');	
+  if( url_location != '' ) {
+	jQuery.get( 'https://maps.googleapis.com/maps/api/geocode/json?address=' + url_location, {}, function( data ){ 
+	  var bounds = new google.maps.LatLngBounds();
+          var geometry_bounds = data.results[0].geometry.bounds;
+          bounds.extend( new google.maps.LatLng( geometry_bounds.northeast.lat, geometry_bounds.northeast.lng ) );
+          bounds.extend( new google.maps.LatLng( geometry_bounds.southwest.lat, geometry_bounds.southwest.lng ) );
+          map.fitBounds(bounds);
+          jQuery( location_field ).val( data.results[0].formatted_address );
+        });
+  } else {
+    jQuery( location_field ).addClass('huge');
   }
 
 }; 
