@@ -13,6 +13,15 @@ header {
 
   font-size: 13px;
 
+  // Link to profile
+  #block-views-block-link-to-profile-logged-in-block-1 {
+    float: right;
+    .avatar img {
+      border-radius: 50%;
+    }
+  }
+
+  // Link to registration
   #block-linktoregistration {
     float: right;
     a.connect {
@@ -28,4 +37,13 @@ header {
       line-height: 28px;
     }
   }
+}
+
+// Make messages visible on front page
+.path-frontpage .messages {
+   margin: 50px 10%;
+   padding: 15px 20px 15px 35px;
+   position: absolute;
+   width: 80%;
+   z-index: 1;
 }
