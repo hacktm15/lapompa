@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+
+  font-size: 13px;
+
+  #block-linktoregistration {
+    float: right;
+    a.connect {
+      display: block;
+      border-radius: 2px;
+      padding: 0 12px;
+      margin: 15px 20px;
+      background-color: #fd2501;
+      border: 1px solid #fa2300;
+      color: #fff;
+      font-weight: bold;
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+}
