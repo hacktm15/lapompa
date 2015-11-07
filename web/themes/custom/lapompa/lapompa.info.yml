@@ -8,3 +8,8 @@ base theme: classy
 
 libraries:
   - lapompa/global-styling
+
+regions:
+  header: Header
+  content: Content
+  footer: Footer
