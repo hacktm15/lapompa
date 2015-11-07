@@ -78,7 +78,7 @@ class HartaBlock extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function build() {
     $build = [];
-    $build['harta_block']['listing']['#markup'] = 'Implement HartaBlock.';
+    $build['harta_block']['listing']['#markup'] = '<div id="listing">Listing</div>';
     $build['harta_block']['harta']['#markup'] = '<div id="harta"></div>';
     $build['harta_block']['harta']['#attached']['library'][] = 'harta/harta_lapompa';
 
