@@ -22,7 +22,9 @@
         "drupal/console": "dev-master",
         "cweagans/composer-patches": "~1.0",
         "drupal/devel": "8.1.x-dev",
-        "drupal/field_group": "dev-8.x-1.x"
+        "drupal/field_group": "dev-8.x-1.x",
+        "drupal/geofield": "dev-8.x-1.x",
+        "drupal/geophp": "dev-8.x-1.x"
     },
     "require-dev": {
         "behat/mink": "~1.6",
@@ -43,6 +45,7 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"]
-        }
+        },
+        "patches-file": "composer.patches.json"
     }
 }

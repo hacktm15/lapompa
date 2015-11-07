@@ -1,0 +1,12 @@
+{
+    "patches": {
+        "drupal/geofield": {
+            "Constraint annotation (https://www.drupal.org/node/1957760#comment-10124388)": "https://www.drupal.org/files/issues/geofield-annotations_fixes-1957760-10.patch",
+            "FieldFormatter fix (https://www.drupal.org/node/1957760#comment-10132500)": "https://www.drupal.org/files/issues/geofield-formatter_fix-1957760-12.patch",
+            "Geolocation js attach fix (https://www.drupal.org/node/2573983#comment-10366031)": "https://www.drupal.org/files/issues/geofield-geolocation-fix-2573983-1.patch"
+        },
+        "drupal/geophp": {
+            "Mising getAdapterMap (https://www.drupal.org/node/2463043#comment-10053076)": "https://www.drupal.org/files/issues/geophp-add_getadaptermap_method-2463043.patch"
+        }
+    }
+}
