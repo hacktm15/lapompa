@@ -6,6 +6,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #fd2501;
 }
 
 header {
@@ -74,9 +75,120 @@ header {
     -moz-box-shadow: 2px 2px 2px #ccc;
     -webkit-box-shadow: 2px 2px 2px #ccc;
     box-shadow: 2px 2px 2px #ccc;
+    transition: all ease-out 0.6s;
     &:hover {
       transition: border-color 0.2s;
       border-color: #fa2300;
     }
+    &.huge {
+        padding-left: 30px;
+	width: 800px;
+        height: 80px;
+        top: 50% !important;
+        margin-top: -55px;
+        left: 50% !important;
+        margin-left: -415px;
+        font-size: 50px;
+    }
+  }
+}
+
+#overlay-harta {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.8);
+  transition: all ease-out 0.6s;
+  visibility: visible;
+  opacity: 1;
+  &.hidden {
+   visibility: hidden;
+   opacity: 0;
+ }
+}
+
+.mapIconLabel {
+  font-size: 36px;
+  color: #333;
+  text-shadow: 2px 2px #fff;
+  &.min-price {
+    color: #fd2501;
+  }
+}
+
+#block-userlogin {
+  position: fixed;
+  width: 420px;
+  z-index: 2;
+  padding: 200px 30px 30px 30px;
+  top: 50%;
+  margin-top: -214px;
+  left: 50%;
+  margin-left: -240px;
+  background: url('../header.png') 0 0 no-repeat #fff; 
+  background-size: 480px auto;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 2px #eee;
+  border-radius: 5px;
+  .form-item {
+    margin: 0 0 25px 0;
+    overflow: hidden;
+    label {
+      float: left;
+      width: 30%;
+      line-height: 50px;
+      font-size: 16px;
+      color: #90a4ae;
+      font-weight: bold;
+    }
+    input {
+      float: left;
+      width: 69%;
+      box-sizing: border-box;
+      height: 50px;
+      padding: 15px;
+      font-size: 18px;
+      color: #37474f;
+    }
+  }
+  ul {
+    margin: 0;
+    list-style: none;
+    li {
+      margin: 0;
+      float: left;
+      width: 50%;
+      text-align: right;
+      text-transform: uppercase;
+      font-weight: bold;
+      &:first-child {
+         text-align: left;
+      }
+    }
+  }
+  #edit-submit {
+    display: block;
+      border-radius: 2px;
+      padding: 0 15px;
+      background-color: #fd2501;
+      border: 1px solid #fa2300;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      height: 40px;
+      line-height: 40px;
+      margin: 0 0 20px 0;
+  }
+}
+
+// User Profile
+
+// Tabs
+ul.tabs li.is-active {
+  background-color: #fa2300;
+  border-radius: 2px;
+  a {
+    color: #fff;
   }
 }
