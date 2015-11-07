@@ -38,3 +38,12 @@ header {
     }
   }
 }
+
+// Make messages visible on front page
+.path-frontpage .messages {
+   margin: 50px 10%;
+   padding: 15px 20px 15px 35px;
+   position: absolute;
+   width: 80%;
+   z-index: 1;
+}
