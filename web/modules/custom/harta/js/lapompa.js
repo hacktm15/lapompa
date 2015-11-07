@@ -1,4 +1,9 @@
 Drupal.harta = {};
+
+Drupal.harta.getUrlParameter = function getUrlParameter(sParam) {
+  return document.location.pathname.replace( '/', ' ' ).trim();    
+};
+
 Drupal.harta.initMap = function() {
   "use strict";
   var mapOptions = {
@@ -12,36 +17,39 @@ Drupal.harta.initMap = function() {
   var map = new google.maps.Map( document.getElementById( 'harta' ), mapOptions );
   
   jQuery( '#harta' ).append('<input id="cauta-locatie" type="text" placeholder="Unde esti?" />');
-  var location_field = document.getElementById('cauta-locatie');
 
+  var location_field = document.getElementById('cauta-locatie'); 
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(location_field);
-  var autocomplete = new google.maps.places.Autocomplete(location_field);
+  var autocomplete = new google.maps.places.SearchBox(location_field);
   autocomplete.bindTo( 'bounds', map );
 
   autocomplete.addListener('place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
     var place = autocomplete.getPlace();
     if (!place.geometry) {
-      window.alert("Autocomplete's returned place contains no geometry");
       return;
     }
 
-    // If the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
+      map.setZoom(17);
     }
 
   });
+
+  var url_location = Drupal.harta.getUrlParameter( 'location' );
+  if( url_location != '' ) {
+	jQuery.get( 'https://maps.googleapis.com/maps/api/geocode/json?address=' + url_location, {}, function( data ){ 
+	  var bounds = new google.maps.LatLngBounds();
+          var geometry_bounds = data.results[0].geometry.bounds;
+          bounds.extend( new google.maps.LatLng( geometry_bounds.northeast.lat, geometry_bounds.northeast.lng ) );
+          bounds.extend( new google.maps.LatLng( geometry_bounds.southwest.lat, geometry_bounds.southwest.lng ) );
+          map.fitBounds(bounds);
+          jQuery( location_field ).val( data.results[0].formatted_address );
+        });
+  } else {
+    jQuery( location_field ).addClass('huge');
+  }
+
 }; 
