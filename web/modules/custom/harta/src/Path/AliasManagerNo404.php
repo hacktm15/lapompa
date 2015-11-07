@@ -17,7 +17,7 @@ class AliasManagerNo404 extends AliasManager {
    * {@inheritdoc}
    */
   public function getPathByAlias($alias, $langcode = NULL) {
-// If no language is explicitly specified we default to the current URL
+    // If no language is explicitly specified we default to the current URL
     // language. If we used a language different from the one conveyed by the
     // requested URL, we might end up being unable to check if there is a path
     // alias matching the URL path.
@@ -39,7 +39,6 @@ class AliasManagerNo404 extends AliasManager {
       return $path;
     }
 
-    return \Drupal::config('system.site')->get('page.front');
 
     // We can't record anything into $this->lookupMap because we didn't find any
     // paths for this alias. Thus cache to $this->noPath.
