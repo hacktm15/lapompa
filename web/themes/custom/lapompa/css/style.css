@@ -7,7 +7,12 @@ a {
 header {
   width: 100%;
   position: absolute;
+  z-index: 1;
   font-size: 13px; }
+  header #block-views-block-link-to-profile-logged-in-block-1 {
+    float: right; }
+    header #block-views-block-link-to-profile-logged-in-block-1 .avatar img {
+      border-radius: 50%; }
   header #block-linktoregistration {
     float: right; }
     header #block-linktoregistration a.connect {

@@ -13,6 +13,15 @@ header {
 
   font-size: 13px;
 
+  // Link to profile
+  #block-views-block-link-to-profile-logged-in-block-1 {
+    float: right;
+    .avatar img {
+      border-radius: 50%;
+    }
+  }
+
+  // Link to registration
   #block-linktoregistration {
     float: right;
     a.connect {
