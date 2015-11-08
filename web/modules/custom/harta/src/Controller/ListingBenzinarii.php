@@ -85,6 +85,10 @@ class ListingBenzinarii extends ControllerBase {
 
     $ids = $query->execute();
 
+    if (!count($ids)) {
+      return;
+    }
+
     $entities = $this->entity_type_manager->getStorage('node')->loadMultiple($ids);
 
     $data = new \stdClass();
@@ -101,6 +105,10 @@ class ListingBenzinarii extends ControllerBase {
         $data->pins []= $pin;
         $render_entities [] = $entity;
       }
+    }
+
+    if (!count($render_entities)) {
+      return;
     }
 
     uasort($render_entities, function($a, $b) {
