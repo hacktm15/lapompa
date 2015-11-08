@@ -77,22 +77,23 @@ class ListingBenzinarii extends ControllerBase {
   }
 
   private function queryBenzinarii($lat_ne, $lon_ne, $lat_sw, $lon_sw) {
+    $data = new \stdClass();
+    $data->pins = [];
+    $data->listing = '';
+
     $query = $this->entity_query->get('node')
-      ->condition('field_coordonate.lat', $lat_ne, '>')
-      ->condition('field_coordonate.lon', $lon_ne, '>')
-      ->condition('field_coordonate.lat', $lat_sw, '<')
-      ->condition('field_coordonate.lon', $lon_sw, '<');
+      ->condition('field_coordonate.lat', (float) $lat_ne, '<')
+      ->condition('field_coordonate.lon', (float) $lon_ne, '<')
+      ->condition('field_coordonate.lat', (float) $lat_sw, '>')
+      ->condition('field_coordonate.lon', (float) $lon_sw, '>');
 
     $ids = $query->execute();
 
     if (!count($ids)) {
-      return;
+      return $data;
     }
 
     $entities = $this->entity_type_manager->getStorage('node')->loadMultiple($ids);
-
-    $data = new \stdClass();
-    $data->pins = [];
 
     foreach ($entities as $entity) {
       $pin = new \stdClass();
@@ -102,13 +103,13 @@ class ListingBenzinarii extends ControllerBase {
       $pin->id = $entity->id();
       if ($pin->pret) {
         $entity->pret = $pin->pret;
-        $data->pins []= $pin;
+        $data->pins[$pin->id] = $pin;
         $render_entities [] = $entity;
       }
     }
 
     if (!count($render_entities)) {
-      return;
+      return $data;
     }
 
     uasort($render_entities, function($a, $b) {
@@ -124,7 +125,7 @@ class ListingBenzinarii extends ControllerBase {
     });
 
     $render = $this->entity_type_manager->getViewBuilder('node')->viewMultiple($render_entities, 'small_teaser');
-    $data->listing = $this->renderer->render($render);
+    $data->listing = '<div class="listing-benzinarii">' . $this->renderer->render($render) . '</div>';
 
     return $data;
   }

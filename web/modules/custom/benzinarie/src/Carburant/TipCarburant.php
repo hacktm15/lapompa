@@ -42,9 +42,11 @@ class TipCarburant {
    * @return Drupal\taxonomy\Entity\Term|null
    */
   static private function getTempStoreCarburant() {
-    $temp_store = \Drupal::getContainer()->get('user.private_tempstore');
+    $temp_store = \Drupal::getContainer()->get('user.private_tempstore')->get();
     $id = $temp_store->get('tip_carburant');
-    return Term::load($id);
+    if ($id) {
+      return Term::load($id);
+    }
   }
 
   /**
