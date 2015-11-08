@@ -79,6 +79,10 @@
       }]
     };
     Drupal.harta.map = new google.maps.Map(document.getElementById('harta'), mapOptions);
+    
+    google.maps.event.addListenerOnce(Drupal.harta.map, 'idle', function(){
+	  Drupal.harta.refreshMarkers();
+    });
 
     // Attach event for markers request. Daca zoom-ul e prea mare nu se face request.
     google.maps.event.addListener(Drupal.harta.map, 'dragend', function(){

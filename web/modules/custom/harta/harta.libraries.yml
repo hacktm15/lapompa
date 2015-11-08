@@ -8,9 +8,5 @@ harta_lapompa:
   dependencies:
     - core/jquery
     - core/drupal
-    - harta/google_map
     - core/jquery.once
-google_map:
-  version: 3.x
-  js:
-    http://example.com/test.js
+    - user_blocks/userpopups

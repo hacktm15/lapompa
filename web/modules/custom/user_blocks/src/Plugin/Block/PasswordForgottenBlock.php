@@ -26,6 +26,10 @@ class PasswordForgottenBlock extends BlockBase {
   public function build() {
     $build = [];
     $build['password_forgotten_block'] = \Drupal::getContainer()->get('form_builder')->getForm('Drupal\user\Form\UserPasswordForm');
+    $build['WTF'] = [
+      '#markup' => '<div class="js-wtf"></div>'
+    ];
+    $build['WTF']['#attached']['library'][] = 'user_blocks/userpopups_lapompa';
 
     return $build;
   }
