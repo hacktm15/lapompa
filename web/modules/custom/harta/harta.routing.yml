@@ -1,0 +1,8 @@
+
+harta.listing_benzinarii_listing:
+  path: '/harta/listing/{lat_ne}/{lon_ne}/{lat_sw}/{lon_sw}'
+  defaults:
+    _controller: '\Drupal\harta\Controller\ListingBenzinarii::listing'
+    _title: 'Listing benzinarii'
+  requirements:
+    _permission: 'access content'
