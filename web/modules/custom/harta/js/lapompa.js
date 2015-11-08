@@ -93,7 +93,7 @@ Drupal.harta.initMap = function() {
     }
     
     if (storage && (results = storage.getItem(location))) {
-      Drupal.harta.newLocation(results);
+      Drupal.harta.newLocation(JSON.parse(results));
     }
     else {
         jQuery.get( 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location, {}, function( data ){
@@ -101,7 +101,7 @@ Drupal.harta.initMap = function() {
             return;
           }
           if (storage) {
-            storage.setItem(location, data.results);
+            storage.setItem(location, JSON.stringify(data.results));
           }
           Drupal.harta.newLocation(data.results);
         });    
