@@ -1,0 +1,5 @@
+name: User Blocks
+type: module
+description: Displays user register and password forgotted blocks.
+core: 8.x
+package: lapompa

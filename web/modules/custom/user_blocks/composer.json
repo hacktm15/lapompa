@@ -1,0 +1,14 @@
+{
+  "name": "drupal/user_blocks",
+  "type": "drupal-module",
+  "description": "Displays user register and password forgotted blocks.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "http://drupal.org/project/user_blocks",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/user_blocks",
+    "source": "http://cgit.drupalcode.org/user_blocks"
+  },
+  "require": { }
+}
