@@ -9,6 +9,7 @@
 namespace Drupal\benzinarie\Carburant;
 
 
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
@@ -30,18 +31,37 @@ class PretCarburant {
    * @return null|static
    */
   static public function getPret(Node $benzinarie, Term $tip_carburant) {
-    $preturi_ids = \Drupal::entityQuery('node')
-      ->condition('type', 'pret')
-      ->condition('field_benzinarie.target_id', $benzinarie->id())
-      ->condition('field_tip_carburant.target_id', $tip_carburant->id())
-      ->condition('status', 1)
-      ->sort('created', 'DESC')
-      ->execute();
+    $cid = self::getCid($benzinarie, $tip_carburant);
 
-    if (count($preturi_ids)) {
-      $pret_id = array_shift($preturi_ids);
-      $pret = Node::load($pret_id);
-      return $pret;
+    $pret = NULL;
+    if ($cache = \Drupal::cache()->get($cid)) {
+      $pret = $cache->data;
     }
+    else {
+      $preturi_ids = \Drupal::entityQuery('node')
+        ->condition('type', 'pret')
+        ->condition('field_benzinarie.target_id', $benzinarie->id())
+        ->condition('field_tip_carburant.target_id', $tip_carburant->id())
+        ->condition('status', 1)
+        ->sort('created', 'DESC')
+        ->execute();
+
+      if (count($preturi_ids)) {
+        $pret_id = array_shift($preturi_ids);
+        $pret = Node::load($pret_id);
+      }
+    }
+
+    \Drupal::cache()->set($cid, $pret);
+    return $pret;
+  }
+
+  static public function getCid(Node $benzinarie, Term $tip_carburant) {
+    return 'benzinarie:' . $benzinarie->id() . ':carburant:' . $tip_carburant->id();
+  }
+
+  static public function clearCachePret(Node $benzinarie, Term $tip_carburant) {
+    $cid = self::getCid($benzinarie, $tip_carburant);
+    \Drupal::cache()->delete($cid);
   }
 }
