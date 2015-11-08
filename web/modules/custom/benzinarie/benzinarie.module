@@ -75,18 +75,23 @@ function benzinarie_entity_extra_field_info() {
 function benzinarie_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   if ($entity->getType() == 'benzinarie') {
     foreach (TipCarburant::getTipuriCarburant() as $tip_carburant) {
-      if ($pret = PretCarburant::getPret($entity, $tip_carburant)) {
+      if ($display->getComponent('tip_carburant_' . $tip_carburant->id()) && $pret = PretCarburant::getPret($entity, $tip_carburant)) {
         $build['tip_carburant_' . $tip_carburant->id()] = [
           '#markup' => '<div class="' . 'tip_carburant_' . $tip_carburant->id() . '">' . t('@tip_carburant @pret lei', ['@tip_carburant' => $tip_carburant->label(), '@pret' => $pret->field_valoare->value]) . '</div>',
         ];
       }
     }
 
+  if ($display->getComponent('titlu_compus')) {
     $build['titlu_compus'] = [
-      '#markup' => '<h2">' . t('@lant @locatie', ['@lant' => $entity->field_lant->entity->label(), '@locatie' => $entity->title->value]) . '</h2>',
+      '#markup' => '<h2">' . t('@lant @locatie', [
+          '@lant' => $entity->field_lant->entity->label(),
+          '@locatie' => $entity->title->value
+        ]) . '</h2>',
     ];
+  }
 
-    if ($pret_curent = PretCarburant::getPretCarburantCurent($entity)) {
+    if ($display->getComponent('pret_combustibil_curent') && $pret_curent = PretCarburant::getPretCarburantCurent($entity)) {
       $build['pret_combustibil_curent'] = [
         '#markup' => '<div class="pret-curent">' . $pret_curent->field_valoare->value . '</div>'
       ];
