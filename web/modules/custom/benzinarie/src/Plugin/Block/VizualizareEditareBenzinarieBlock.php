@@ -25,7 +25,9 @@ class VizualizareEditareBenzinarieBlock extends BlockBase {
    */
   public function build() {
     $build = [];
-    $build['vizualizare_editare_benzinarie_block']['#markup'] = 'Implement VizualizareEditareBenzinarieBlock.';
+    $build['vizualizare_editare_benzinarie_block'] = [
+      '#theme' => 'vizualizare_benzinarie',
+    ];
 
     return $build;
   }

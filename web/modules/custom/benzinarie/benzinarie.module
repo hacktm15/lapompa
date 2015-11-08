@@ -31,7 +31,11 @@ function benzinarie_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function benzinarie_theme() {
-  $theme = [];
+  $theme = [
+    'vizualizare_benzinarie' => [
+      'variables' => ['nume' => 'Mol Str Miresei colt cu Cimitirului', 'pret_benzina_regular' => '6.66', 'pret_benzina_premium' => '6.66', 'pret_motorina_premium' => '6.66', 'pret_motorina_regular' => '6.66', 'data' => 'ieri', 'utilizator' => 'vasile'],
+    ],
+  ];
 
   return $theme;
 }
