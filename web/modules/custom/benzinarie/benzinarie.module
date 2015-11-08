@@ -77,7 +77,7 @@ function benzinarie_node_view(array &$build, EntityInterface $entity, EntityView
     foreach (TipCarburant::getTipuriCarburant() as $tip_carburant) {
       if ($display->getComponent('tip_carburant_' . $tip_carburant->id()) && $pret = PretCarburant::getPret($entity, $tip_carburant)) {
         $build['tip_carburant_' . $tip_carburant->id()] = [
-          '#markup' => '<div class="' . 'tip_carburant_' . $tip_carburant->id() . '">' . t('@tip_carburant @pret lei', ['@tip_carburant' => $tip_carburant->label(), '@pret' => $pret->field_valoare->value]) . '</div>',
+          '#markup' => '<div class="' . 'tip_carburant_' . $tip_carburant->id() . '">' . t('@tip_carburant @pret lei', ['@tip_carburant' => $tip_carburant->label(), '@pret' => $pret]) . '</div>',
         ];
       }
     }
