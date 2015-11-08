@@ -77,7 +77,6 @@ class ListingBenzinarii extends ControllerBase {
   }
 
   private function queryBenzinarii($lat_ne, $lon_ne, $lat_sw, $lon_sw) {
-    $start = microtime(TRUE);
     $data = new \stdClass();
     $data->pins = [];
     $data->listing = '';
@@ -90,21 +89,17 @@ class ListingBenzinarii extends ControllerBase {
 
     $ids = $query->execute();
 
-    $intermediary = microtime(TRUE);
-    $data->primul_load = $intermediary - $start;
     if (!count($ids)) {
       return $data;
     }
 
     $entities = $this->entity_type_manager->getStorage('node')->loadMultiple($ids);
 
-    $intermediary = microtime(TRUE);
-    $data->entity_load = $intermediary - $start;
     foreach ($entities as $entity) {
       $pin = new \stdClass();
       $pin->lat = $entity->field_coordonate->lat;
       $pin->lon = $entity->field_coordonate->lon;
-      $pin->pret = PretCarburant::getPretCarburantCurent($entity)->field_valoare->value;
+      $pin->pret = PretCarburant::getPretCarburantCurent($entity);
       $pin->id = $entity->id();
       if ($pin->pret) {
         $entity->pret = $pin->pret;
@@ -113,8 +108,6 @@ class ListingBenzinarii extends ControllerBase {
       }
     }
 
-    $intermediary = microtime(TRUE);
-    $data->incarcat_preturi = $intermediary - $start;
     if (!count($render_entities)) {
       return $data;
     }
@@ -131,13 +124,9 @@ class ListingBenzinarii extends ControllerBase {
       }
     });
 
-    $intermediary = microtime(TRUE);
-    $data->sort = $intermediary - $start;
     $render = $this->entity_type_manager->getViewBuilder('node')->viewMultiple($render_entities, 'small_teaser');
     $data->listing = '<div class="listing-benzinarii">' . $this->renderer->render($render) . '</div>';
 
-    $intermediary = microtime(TRUE);
-    $data->render = $intermediary - $start;
     return $data;
   }
 

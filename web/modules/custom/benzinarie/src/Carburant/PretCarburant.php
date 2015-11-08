@@ -37,23 +37,28 @@ class PretCarburant {
     if ($cache = \Drupal::cache()->get($cid)) {
       $pret = $cache->data;
     }
-    else {
-      $preturi_ids = \Drupal::entityQuery('node')
-        ->condition('type', 'pret')
-        ->condition('field_benzinarie.target_id', $benzinarie->id())
-        ->condition('field_tip_carburant.target_id', $tip_carburant->id())
-        ->condition('status', 1)
-        ->sort('created', 'DESC')
-        ->execute();
-
-      if (count($preturi_ids)) {
-        $pret_id = array_shift($preturi_ids);
-        $pret = Node::load($pret_id);
-      }
+    elseif ($pret_entity = self::getPretEntity($benzinarie, $tip_carburant)) {
+      $pret = $pret_entity->field_valoare->value;
     }
 
     \Drupal::cache()->set($cid, $pret);
     return $pret;
+  }
+
+  static public function getPretEntity(Node $benzinarie, Term $tip_carburant) {
+    $preturi_ids = \Drupal::entityQuery('node')
+      ->condition('type', 'pret')
+      ->condition('field_benzinarie.target_id', $benzinarie->id())
+      ->condition('field_tip_carburant.target_id', $tip_carburant->id())
+      ->condition('status', 1)
+      ->sort('created', 'DESC')
+      ->execute();
+
+    if (count($preturi_ids)) {
+      $pret_id = array_shift($preturi_ids);
+      return Node::load($pret_id);
+    }
+
   }
 
   static public function getCid(Node $benzinarie, Term $tip_carburant) {
