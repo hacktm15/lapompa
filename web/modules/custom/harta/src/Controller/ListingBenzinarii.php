@@ -106,7 +106,6 @@ class ListingBenzinarii extends ControllerBase {
       $pin->lon = $entity->field_coordonate->lon;
       $pin->pret = PretCarburant::getPretCarburantCurent($entity)->field_valoare->value;
       $pin->id = $entity->id();
-      if (!$pin->pret) {$pin->pret = '---';}
       if ($pin->pret) {
         $entity->pret = $pin->pret;
         $data->pins[$pin->id] = $pin;
@@ -124,7 +123,7 @@ class ListingBenzinarii extends ControllerBase {
       if ($a->pret == $b->pret) {
         return 0;
       }
-      else if ($a->pret > $b->pret) {
+      else if ($a->pret < $b->pret) {
         return -1;
       }
       else {
