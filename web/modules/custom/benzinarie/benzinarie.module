@@ -93,7 +93,7 @@ function benzinarie_node_view(array &$build, EntityInterface $entity, EntityView
 
     if ($display->getComponent('pret_combustibil_curent') && $pret_curent = PretCarburant::getPretCarburantCurent($entity)) {
       $build['pret_combustibil_curent'] = [
-        '#markup' => '<div class="pret-curent">' . $pret_curent->field_valoare->value . '</div>'
+        '#markup' => '<div class="pret-curent">' . $pret_curent->field_valoare->value . '<span class="currency">lei</span></div>'
       ];
     }
   }
